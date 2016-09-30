@@ -1,0 +1,20 @@
+.wrap {
+	max-width: 570px;
+	margin: 0 auto;
+	border: 1px solid gray;
+	/*height: 100vh;*/
+}
+
+.blocks {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.blocks__block {
+	position: relative;
+	width: 110px;
+	height: 110px;
+	margin: 2px;
+
+	background-color: gray;
+}
