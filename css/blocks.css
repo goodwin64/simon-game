@@ -1,7 +1,14 @@
+.title {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
 .wrap {
 	max-width: 570px;
 	margin: 0 auto;
-	border: 1px solid gray;
+	border: 2px solid gray;
+	padding: 5px;
+	border-radius: 5px;
 	/*height: 100vh;*/
 	vertical-align: center;
 }
