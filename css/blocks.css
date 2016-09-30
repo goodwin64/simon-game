@@ -17,8 +17,8 @@
 	height: 110px;
 	border-radius: 50%;
 	margin: 2px;
-	transition: transform 0.2s ease;
-	transform: rotateX(0);
+	transition: transform 0.4s ease;
+	transform: rotateX(0deg);
 
 	background-color: gray;
 }
