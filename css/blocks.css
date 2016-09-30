@@ -22,24 +22,24 @@
 
 	background-color: gray;
 }
-.red::after {
+/*.red::after {
 	background-color: red;
-}
+}*/
 .show_color {
 	transform: rotateY(180deg);
 }
-#b1 {
+.blocks_block {
 	transform-style: preserve-3d;
 }
-#b1::after {
+.blocks_block::after {
 	transform: rotateX(180deg);
-	background-color: red;
+	/*background-color: red;*/
 }
-#b1::before {
+.blocks_block::before {
 	transform: translateZ(1px);
 }
 
-#b1::after, #b1::before {
+.blocks_block::after, .blocks_block::before {
 	display: block;
 	content: '';
 	position: absolute;
