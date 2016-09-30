@@ -59,3 +59,7 @@
 	right: 0;
 	backface-visibility: hidden;
 }
+
+.hidden {
+	visibility: hidden;
+}

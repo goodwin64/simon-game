@@ -13,10 +13,10 @@ document.getElementById('game').addEventListener('click', function(event) {
     if (event.target.className.indexOf('blocks__block') === -1) return false;
 
     if (event.target.id == level[counterClick]['id']) {
-        showBlock(counterClick);
+        showColor(counterClick);
         document.getElementById(level[counterClick]['id']).classList.add('show_color');
         setTimeout(function() {
-            hideBlock(counterClick);
+            hideColor(counterClick);
             document.getElementById(level[counterClick]['id']).classList.remove('show_color');
         }, delay);
     }
@@ -35,6 +35,10 @@ document.getElementById('game').addEventListener('click', function(event) {
 
 function changeLevel() {
     counterClick = 0;
+    var blocks = document.getElementsByClassName("blocks__block");
+    for (var i = 0; i < blocks.length; i++) {
+        blocks[i].classList.add("hidden");
+    }
 
     currentLevel++;
     level = levels[currentLevel];
@@ -47,7 +51,11 @@ function changeLevel() {
 }
 
 function drawLevel(level) {
-    showBlock(0);
+    for (var i = 0; i < level.length; i++) {
+        document.getElementById(level[i].id).classList.remove("hidden");
+    }
+
+    showColor(0);
 
     for (var i = 1; i < level.length; i++)(function(i) {
         setTimeout(function() {
@@ -57,15 +65,15 @@ function drawLevel(level) {
     })(i);
 
     setTimeout(function() {
-        hideBlock(level.length - 1);
+        hideColor(level.length - 1);
     }, delay * i);
 }
 
-function showBlock(index) {
+function showColor(index) {
     document.getElementById(level[index]['id']).classList.add(level[index]['color']);
 }
 
-function hideBlock(index) {
+function hideColor(index) {
     document.getElementById(level[index]['id']).classList.remove(level[index]['color']);
 }
 
