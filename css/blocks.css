@@ -17,6 +17,38 @@
 	height: 110px;
 	border-radius: 50%;
 	margin: 2px;
+	transition: transform 0.2s ease;
+	transform: rotateX(0);
 
 	background-color: gray;
+}
+.red::after {
+	background-color: red;
+}
+.show_color {
+	transform: rotateY(180deg);
+}
+#b1 {
+	transform-style: preserve-3d;
+}
+#b1::after {
+	transform: rotateX(180deg);
+	background-color: red;
+}
+#b1::before {
+	transform: translateZ(1px);
+}
+
+#b1::after, #b1::before {
+	display: block;
+	content: '';
+	position: absolute;
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	backface-visibility: hidden;
 }
