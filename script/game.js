@@ -2,12 +2,17 @@
  * Created by Sergio on 30.09.2016.
  */
 
-var level = levelOne,
-    levels = [levelOne, levelTwo],
-    currentLevel = 0,
-    delay = 500,
+var COLORS = ["red", "blue", "orange", "yellow", "green", "pink", "purple", "light_blue"],
+    levels = [generateRandomLevel(1), generateRandomLevel(2)],
+    level = levels[0],
+    currentLevel = 1,
+    DELAY = 500,
     gameField = document.getElementById("game"),
     counterClick = 0;
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 document.getElementById('game').addEventListener('click', function(event) {
     if (event.target.className.indexOf('blocks__block') === -1) return false;
@@ -18,19 +23,19 @@ document.getElementById('game').addEventListener('click', function(event) {
         setTimeout(function() {
             hideColor(counterClick);
             document.getElementById(level[counterClick]['id']).classList.remove('show_color');
-        }, delay);
+        }, DELAY);
     }
 
     setTimeout(function() {
         if (level[counterClick]['id'] !== event.target.id) {
-            alert('game lost');
+            console.log('game lost');
         } else if (counterClick === level.length - 1) {
-            alert('you win');
+            console.log('you win');
             changeLevel();
         } else {
             counterClick++;
         }
-    }, delay);
+    }, DELAY);
 });
 
 function changeLevel() {
@@ -40,13 +45,8 @@ function changeLevel() {
         blocks[i].classList.add("hidden");
     }
 
-    currentLevel++;
-    level = levels[currentLevel];
-
-    if (levels.length === currentLevel) return;
-
-    document.getElementById("current-level").innerText = currentLevel + 1;
-
+    document.getElementById("current-level").innerText = ++currentLevel;
+    level = generateRandomLevel(currentLevel)
     drawLevel(level);
 }
 
@@ -61,12 +61,12 @@ function drawLevel(level) {
         setTimeout(function() {
             document.getElementById(level[i]['id']).classList.add(level[i]['color']);
             document.getElementById(level[i - 1]['id']).classList.remove(level[i - 1]['color']);
-        }, delay * i);
+        }, DELAY * i);
     })(i);
 
     setTimeout(function() {
         hideColor(level.length - 1);
-    }, delay * i);
+    }, DELAY * i);
 }
 
 function showColor(index) {
@@ -77,4 +77,21 @@ function hideColor(index) {
     document.getElementById(level[index]['id']).classList.remove(level[index]['color']);
 }
 
-drawLevel(level);
+function generateRandomLevel(levelIndex, rowsCount, columnsCount) {
+    rowsCount = rowsCount || 5;
+    columnsCount = columnsCount || 5;
+    var resultLevel = [];
+    for (var i = 0; i < levelIndex; i++) {
+        var randID = 'b' + getRandomInt(1, rowsCount) + getRandomInt(1, columnsCount);
+        var randColor = COLORS[getRandomInt(0, COLORS.length - 1)];
+
+        resultLevel.push({
+            id: randID,
+            color: randColor
+        });
+    }
+
+    return resultLevel;
+}
+
+drawLevel(levels[0]);
