@@ -2,7 +2,23 @@
  * Created by Sergio on 30.09.2016.
  */
 
-var level = levelOne;
+var level = levelOne,
+    levels = [levelOne, levelTwo],
+    currentLevel = 0;
+
+function changeLevel() {
+    counterClick = 0;
+
+    currentLevel++;
+    level = levels[currentLevel];
+
+    if (levels.length === currentLevel) return;
+
+    document.getElementById("current-level").innerText = currentLevel + 1;
+
+    drawLevel(level);
+}
+
 
 var counterClick = 0;
 
@@ -10,14 +26,16 @@ var counterClick = 0;
 document.getElementById('game').addEventListener('click', function (event) {
     if (event.target.className.indexOf('blocks__block') === -1) return false;
 
-    document.getElementById(level[counterClick]['id']).classList.add(level[counterClick]['color']);
-
     if (level[counterClick]['id'] !== event.target.id) {
         alert('game lost');
     } else if (counterClick === level.length - 1) {
         alert('you win');
-        counterClick = 0;
+        changeLevel();
     } else {
+        document.getElementById(level[counterClick]['id']).classList.add(level[counterClick]['color']);
+        setTimeout(function() {
+            document.getElementById(level[counterClick - 1]['id']).classList.remove(level[counterClick - 1]['color']);
+        }, 300);
         counterClick += 1;
     }
 
