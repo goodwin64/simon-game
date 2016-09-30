@@ -6,7 +6,32 @@ var level = levelOne,
     levels = [levelOne, levelTwo],
     currentLevel = 0,
     delay = 500,
-    gameField = document.getElementById("game");
+    gameField = document.getElementById("game"),
+    counterClick = 0;
+
+document.getElementById('game').addEventListener('click', function(event) {
+    if (event.target.className.indexOf('blocks__block') === -1) return false;
+
+    if (event.target.id == level[counterClick]['id']) {
+        showBlock(counterClick);
+        document.getElementById(level[counterClick]['id']).classList.add('show_color');
+        setTimeout(function() {
+            hideBlock(counterClick);
+            document.getElementById(level[counterClick]['id']).classList.remove('show_color');
+        }, delay);
+    }
+
+    setTimeout(function() {
+        if (level[counterClick]['id'] !== event.target.id) {
+            alert('game lost');
+        } else if (counterClick === level.length - 1) {
+            alert('you win');
+            changeLevel();
+        } else {
+            counterClick++;
+        }
+    }, delay);
+});
 
 function changeLevel() {
     counterClick = 0;
@@ -21,40 +46,19 @@ function changeLevel() {
     drawLevel(level);
 }
 
-
-var counterClick = 0;
-
-
-document.getElementById('game').addEventListener('click', function(event) {
-    if (event.target.className.indexOf('blocks__block') === -1) return false;
-
-    if (level[counterClick]['id'] !== event.target.id) {
-        alert('game lost');
-    } else if (counterClick === level.length - 1) {
-        alert('you win');
-        changeLevel();
-    } else {
-        document.getElementById(level[counterClick]['id']).classList.add(level[counterClick]['color']);
-        document.getElementById(level[counterClick]['id']).classList.add('show_color');
-        setTimeout(function() {
-            document.getElementById(level[counterClick - 1]['id']).classList.remove(level[counterClick - 1]['color']);
-            document.getElementById(level[counterClick]['id']).classList.remove('show_color');
-        }, delay);
-        counterClick += 1;
-    }
-});
-
 function drawLevel(level) {
     showBlock(0);
 
-    for (var i = 1; i < level.length; i++) (function(i) {
+    for (var i = 1; i < level.length; i++)(function(i) {
         setTimeout(function() {
             document.getElementById(level[i]['id']).classList.add(level[i]['color']);
             document.getElementById(level[i - 1]['id']).classList.remove(level[i - 1]['color']);
         }, delay * i);
     })(i);
 
-    hideBlock(level.length - 1);
+    setTimeout(function() {
+        hideBlock(level.length - 1);
+    }, delay * i);
 }
 
 function showBlock(index) {
@@ -62,9 +66,7 @@ function showBlock(index) {
 }
 
 function hideBlock(index) {
-    setTimeout(function() {
-        document.getElementById(level[index]['id']).classList.remove(level[index]['color']);
-    }, delay * (index + 1));
+    document.getElementById(level[index]['id']).classList.remove(level[index]['color']);
 }
 
 drawLevel(level);
