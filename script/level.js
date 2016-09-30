@@ -11,18 +11,18 @@ var blockEmpty = [
 var levelOne = [
     {
         id: 'b32',
-        color: 'blue'},
+        color: 'red'},
     {
         id: 'b23',
         color: 'blue'
     },
     {
         id: 'b34',
-        color: 'blue'
+        color: 'orange'
     },
     {
         id: 'b43',
-        color: 'blue'
+        color: 'green'
     }
 ];
 
