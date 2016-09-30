@@ -29,14 +29,8 @@ document.getElementById('game').addEventListener('click', function (event) {
     if (level[counterClick]['id'] !== event.target.id) {
         alert('game lost');
     } else if (counterClick === level.length - 1) {
-        document.getElementById(level[counterClick]['id']).classList.add(level[counterClick]['color']);
-        setTimeout(function() {
-            document.getElementById(level[counterClick - 1]['id']).classList.remove(level[counterClick - 1]['color']);
-        }, 300);
-        setTimeout(function () {
-            alert('you win');
-            changeLevel();
-        }, 1000);
+        alert('you win');
+        changeLevel();
     } else {
         document.getElementById(level[counterClick]['id']).classList.add(level[counterClick]['color']);
         document.getElementById(level[counterClick]['id']).classList.add('show_color');
